@@ -1,0 +1,19 @@
+AD,Administrative,1
+AMA,Aircraft Maintenance,2
+A,Air,10
+C,Chaplain,0.25
+CS,Combat Systems,10
+COM,Communications,5
+D,Deck,10
+E,Engineering,5
+L,Legal,0.25
+M,Maintenance,5
+MED,Medical,0.5
+NAV,Navigation,3
+OPS,Operations,7
+PA,Public Affairs,0.25
+NUKE,Reactor,6
+SAF,Safety,5
+SUP,Supply,9.75
+TR,Training,5
+W,Weapons,15

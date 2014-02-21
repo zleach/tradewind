@@ -1,0 +1,59 @@
+Star Carrier,CV/CVN,AD AMA A C CS D E L M MED NAV OPS PA NUKE SAF SUP TR W
+Light Star Carrier,CVL,AD AMA A C CS D E L M MED NAV OPS PA NUKE SAF SUP TR W
+Escort Star Carrier,CVE,AD AMA A C CS D E L M MED NAV OPS PA NUKE SAF SUP TR W
+Battleship,BB,AD CS D E M MED NAV OPS NUKE SAF SUP W
+Heavy Gunship,GSA,CS E M NAV OPS NUKE SAF W
+Guided Missile Cruiser,CAG/CGN,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Heavy Cruiser,CA,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Light Cruiser,CL,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Destroyer,DD,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Guided Missile Destroyer,DDG,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Destroyer Escort,DE,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Frigate,FF,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Guided Missile Frigate,FFG,AD CS D E M MED NAV OPS NUKE SAF SUP TR W
+Ground Combat Ship,LCS,CS E M MED NAV OPS W
+Ground Assault Ship,LCA,CS E M MED NAV OPS W
+Guided Missile Prowler,SSG/AGSS,CS E M MED NAV OPS W
+Attack Prowler,SSN,CS E M MED NAV OPS W
+Ballistic Prowler,SSBN,CS E M MED NAV OPS W
+Guided Missile Prowler,SSGN,CS E M MED NAV OPS W
+Orbital Assault Ship,LHA/LHD,CS E M NAV OPS W
+Orbital Command Ship,LCC,AD AMA C CS COM D E L M MED NAV OPS PA NUKE SAF SUP TR W
+Orbital Transport Dock,LPD,CS E M MED NAV OPS W
+Attack / Orbital Cargo Ship,AKA/LKA,CS E M MED NAV OPS W
+Dock Landing Ship,LSD,CS E MED NAV OPS W
+Landing Ship,LST,CS NAV W
+Dropship,LCM/LCU,AC
+Mechanized and Utility Dropship,LCM/LCU,AC GUN M
+Heavy Assault Dropship,LHAC,AC GUN
+Oribtal Patrol,PC,CS NAV OPS
+Patrol Combatant Missile (Suborbital),PHM,CS NAV SAF
+Asterioid Minesweeper,MSO,NAV OPS
+Orbital Minehunter,MHC,CS NAV OPS
+Mine Countermeasures Ship,MCM,CS NAV OPS
+Mine Countermeasures Support Ship,MCS,CS NAV OPS
+Ammunition Ship,AE,E M NAV OPS SUP
+Stellar Maintenance Logistics Ship,AVB,E M MED NAV OPS SUP W
+Solar Repair Ship,ARC,D E M NAV OPS SUP W
+Cargo Ship,AK,,E NAV OPS SUP
+Combat Stores Ship,AD,NAV OPS SUP
+Command Ship,AGF,AD AMA C CS D E L M MED NAV OPS PA NUKE SAF SUP TR W
+Communications Relay Ship,ACS,COM E NAV OPS
+Destroyer Tender,AD,E NAV OPS
+Dry Cargo / Ammunition Ship,AKE,NAV OPS SUP
+Fast Combat Support Ship,AOE,E M NAV OPS SUP
+Stellar Research Ship,AGOR,COM E NAV OPS MED
+Combat Logistics Ship,AO,E NAV OPS SUP
+Fuel Tanker,AOG,SUP OPS NAV
+Hospital Ship,AH,HOS NAV OPS L
+Stellar Surveillance Ship,AGOS,COM E NAV OPS MED
+Repair Ship,AR,D E M NAV OPS MED
+Replenishment Oiler,AOR,E NAV OPS
+Rescue and Salvage Ship,ARS,E NAV OPS SUP
+Starport Tender,AV,E NAV OPS SUP
+Stores Ship,AF,E NAV OPS SUP
+Prowler Rescue Ship,ASR
+Prowler Tender,AS,E NAV OPS SUP
+Survey Ship,AGS,COM E NAV OPS MED
+Vehicle Cargo Ship,AKR,D NAV SUP OPS
+Mobile Landing Platform Ship,MLP,D E NAV SUP OPS

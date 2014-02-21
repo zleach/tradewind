@@ -1,0 +1,14 @@
+body {
+    color: #333;
+}
+h5 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 95%;
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+table.characteristics td {
+    font-size: 90%;
+}
