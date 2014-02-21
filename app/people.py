@@ -44,7 +44,7 @@ class Person(object):
         # Other
         self.minimumAge = 18
         self.previousService = self.previousService()
-        self.birthPlace = data.pick('installation.place')
+        self.birthPlace = data.pick('places.birthplaces')
 
     def previousService(self):
         # Only about 5% of people have previous service.

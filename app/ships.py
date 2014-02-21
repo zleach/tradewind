@@ -7,7 +7,7 @@ from people import *
 from astronomy import *
 
 class Ship(object):
-    def __init__(self,prefix,shipType,crewSize):
+    def __init__(self,prefix=None,shipType=0,crewSize=1):
 
         # Name
         self.name = names.get_ship_name()

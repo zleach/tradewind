@@ -8,9 +8,8 @@ import random
 import time
 import names
 
-from ships import *
-from people import *
-from astronomy import *
+import ships
+import people
 
 YEAR_OFFSET = 200
 
@@ -81,23 +80,20 @@ def parse(template):
     if (type(template) == str):        
         tags = re.findall('<.*?>', template)
         rgx = re.compile('[%s]' % '<>')
-        
+                
         for tag in tags:
             value = rgx.sub('', tag)
-    
+
             if(seperator in value):
                 # Nested
                 parts = value.split(seperator)
-                if callable(eval(parts[0])):
-                    
-                    print globals()[parts[0]](eval(parts[1]),1,1)
-                else:
-                    if len(parts) == 2:
-                        value = random.choice(getattr(module, parts[0])[parts[1]])
-                    if len(parts) == 3:
-                        value = random.choice(getattr(module, parts[0])[parts[1]][parts[2]])
-                    if len(parts) == 4:
-                        value = random.choice(getattr(module, parts[0])[parts[1]][parts[2]][parts[3]])    
+                                            
+                if len(parts) == 2:
+                    value = random.choice(getattr(module, parts[0])[parts[1]])
+                if len(parts) == 3:
+                    value = random.choice(getattr(module, parts[0])[parts[1]][parts[2]])
+                if len(parts) == 4:
+                    value = random.choice(getattr(module, parts[0])[parts[1]][parts[2]][parts[3]])    
             else:
                 # Flat
                 value = random.choice(getattr(module, value))
@@ -106,31 +102,61 @@ def parse(template):
             template = template.replace(tag,value);
 
     return template
-installation = {
-    "place" : [
-        "somewhere in the <astronomy.constellation> system",
-        "a small town on <astronomy.planet.name> <installation.numeral>",
-        "the borderlands of the <astronomy.planet.name> outpost on <astronomy.constellation> <installation.numeral>",
-        "a frontier colony on <astronomy.constellation> <installation.numeral>",
-        "a well established colony on <astronomy.planet.name>",
-        "the capital city of <astronomy.planet.name>",
-        "the old city of <astronomy.planet.name> on <astronomy.constellation> <installation.numeral>",
-        "<astronomy.planet.name> Outpost",
-        "<astronomy.planet.name> Spaceport",
-        "a listening station on <astronomy.planet.name>",
-        "a communications relay station on <astronomy.planet.name> <installation.numeral>",
-        "a satelight relay station orbiting <astronomy.planet.name> <installation.numeral>",
-        "an outpost on <astronomy.planet.name> <installation.numeral>",
-        "<astronomy.planet.name> City on <astronomy.constellation>",
-        "<astronomy.planet.name> Colony on <astronomy.constellation>",
-        "a military base on <astronomy.planet.name> <installation.numeral>",
-        "a shipyard town on <astronomy.planet.name> <installation.numeral>",
-        "the gas mines of <astronomy.planet.name> <installation.numeral>",
-        "The <astronomy.planet.name> Terraform Complex",
-        "The <astronomy.planet.name> Industrial Complex",
-        "a <installation.type> city of <astronomy.planet.name> <installation.numeral>",
-        "the largest moon of <astronomy.constellation>",
-        "a colony on the first moon of <astronomy.planet.name> in the <astronomy.constellation> system",
+
+
+places = {
+    "birthplaces" : [
+        "<places.qualifier.singular> somewhere in the <astronomy.constellation> system",
+        "<places.qualifier.plural> a <places.town> town on <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> the borderlands of the <astronomy.planet.name> outpost on <astronomy.constellation> <astronomy.numeral>",
+        "<places.qualifier.singular> a frontier colony on <astronomy.constellation> <astronomy.numeral>",
+        "<places.qualifier.singular> a well established colony on <astronomy.planet.name>",
+        "<places.qualifier.plural> the <places.type> city of <astronomy.planet.name> on <astronomy.constellation> <astronomy.numeral>",
+        "<places.qualifier.plural> the <places.type> city of <astronomy.planet.name>",
+        "<places.qualifier.plural> the <places.type> moon of <astronomy.planet.name> in <astronomy.constellation>",
+        "<places.qualifier.singular> <astronomy.planet.name> Outpost",
+        "<places.qualifier.plural> <astronomy.planet.name> Spaceport",
+        "<places.qualifier.singular> <astronomy.planet.name> Starport",
+        "<places.qualifier.singular> a listening station on <astronomy.planet.name>",
+        "<places.qualifier.singular> a communications relay station on <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.singular> a satellite relay station orbiting <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.singular> an orbital relay station near <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> an outpost on <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> <astronomy.planet.name> City on <astronomy.constellation>",
+        "<places.qualifier.plural> <astronomy.planet.name> Colony on <astronomy.constellation>",
+        "<places.qualifier.plural> a military base on <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> a shipyard town on <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> the gas mines of <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> The <astronomy.planet.name> Terraform Complex",
+        "<places.qualifier.plural> The <astronomy.planet.name> Mining Complex",
+        "<places.qualifier.plural> The <astronomy.planet.name> Refinery Complex",
+        "<places.qualifier.plural> The <astronomy.planet.name> Industrial Complex",
+        "<places.qualifier.plural> the <places.type> city of <astronomy.planet.name> <astronomy.numeral>",
+        "<places.qualifier.plural> the largest moon of <astronomy.constellation>",
+        "<places.qualifier.plural> the second moon of <astronomy.constellation>",
+        "<places.qualifier.plural> a colony on the first moon of <astronomy.planet.name> in the <astronomy.constellation> system",
+    ],
+    "qualifier" : {
+        "singular" : [
+            "is originally from",
+            "is from",
+            "was born on",
+            "was raised on ",
+        ],
+        "plural" : [
+            "is originally from",
+            "is from",
+            "was born in",
+            "was raised in",
+        ],
+    },
+    "town" : [
+        "",
+        "small",
+        "fairly small",
+        "rural",
+        "farming",
+        "quiet",
     ],
     "type" : [
         "industrial",
@@ -139,23 +165,14 @@ installation = {
         "isolated",
         "remote",
         "desert",
+        "forest",
         "frozen",
         "cloud",
+        "old",
+        "ancient",
+        "capital",
+        "lawless",
     ],
-    "numeral" : [
-        "",
-        "Prime",
-        "I",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "VII",
-        "VIII",
-        "IX",
-    ]
-    
 }
 
 astronomy = {
@@ -591,6 +608,19 @@ astronomy = {
         "Virgo",
         "Volans",
         "Vulpecula"
+    ],
+    "numeral" : [
+        "",
+        "Prime",
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
     ]
 }
 
