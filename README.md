@@ -10,14 +10,14 @@ First, you'll need to clone the repo.
     $ git https://github.com/zleach/tradewind.git
     $ cd tradewind
 
-We'll need to install the dependencies, with `pip`.
-    
-    $ pip install -r requirements.txt 
-
 Now, you can setup an isolated environment with `virtualenv`.
 
     $ virtualenv --no-site-packages venv
     $ source venv/bin/activate
+
+We'll need to install the dependencies, with `pip`.
+    
+    $ pip install -r requirements.txt 
     
 Finally, once it's running you can load tradewind in your browser.
 
