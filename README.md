@@ -18,18 +18,18 @@ Now, you can setup an isolated environment with `virtualenv`.
 We'll need to install the dependencies, with `pip`.
     
     $ pip install -r requirements.txt 
-    
-Finally, once it's running you can load tradewind in your browser.
-
-    0.0.0.0:5000
-    (Stop the server by pressing ctrl-c)
-    
+        
 Running Tradewind
 ------------------------
 
 Now, you can run the application locally with foreman.
 
     $ foreman start
+
+Finally, once it's running you can load tradewind in your browser.
+
+    0.0.0.0:5000
+    (Stop the server by pressing ctrl-c)
 
 Reactivating the Virtual Environment
 ------------------------------------
