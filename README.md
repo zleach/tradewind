@@ -2,6 +2,8 @@ Tradewind
 ============
 A sci-fi / future ship's company generator.
 
+Live demo here: http://tradewind-mvii.herokuapp.com/
+
 Running
 ------------
 
