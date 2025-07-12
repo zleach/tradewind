@@ -85,20 +85,22 @@ class Officer(Person):
     def __init__(self):
         Person.__init__(self)
         self.rank = self.rank('officer');
-        self.age = '%g' % round(random.randint(22,40)*(self.rank.order*.10)+0,0);
+        # Store age as an int so it can be compared numerically elsewhere
+        self.age = int(round(random.randint(22,40)*(self.rank.order * 0.10) + 0))
 
 class Enlisted(Person):
     def __init__(self):
         Person.__init__(self)
         self.rank = self.rank('enlisted');
-        self.age = '%g' % round(random.randint(22,30)*(self.rank.order*.10)+13,0);
-        if(self.age <= self.minimumAge): self.age = self.minimumAge;
+        self.age = int(round(random.randint(22, 30) * (self.rank.order * 0.10) + 13))
+        if self.age <= self.minimumAge:
+            self.age = self.minimumAge
       
 class Pilot(Officer):
     def __init__(self):
         Officer.__init__(self);
         self.callsign = self.callsign();
-        self.age = '%g' % round(random.randint(15,25)*(self.rank.order*.10),0);
+        self.age = int(round(random.randint(15, 25) * (self.rank.order * 0.10)))
 
     def callsign(self):
         return names.get_nick_name()
@@ -110,19 +112,19 @@ class HighRankOfficer(Officer):
     def __init__(self):
         Person.__init__(self);
         self.rank = self.rank('high ranking officer');
-        self.age = '%g' % round(random.randint(20,30)*(self.rank.order*.10)+13,0);
+        self.age = int(round(random.randint(20, 30) * (self.rank.order * 0.10) + 13))
 
 class Commander(Officer):
     def __init__(self):
         Person.__init__(self);
         self.rank = self.rank('commander');
-        self.age = '%g' % round(random.randint(20,30)*(self.rank.order*.10)+13,0);
+        self.age = int(round(random.randint(20, 30) * (self.rank.order * 0.10) + 13))
 
 class Marine(Enlisted):
     def __init__(self):
         Person.__init__(self);
         self.rank = self.rank('marine');
-        self.age = '%g' % round(random.randint(20,40)*(self.rank.order*.10)+14,0);
+        self.age = int(round(random.randint(20, 40) * (self.rank.order * 0.10) + 14))
       
 class Rank(object):
     def __init__(self,grade):
