@@ -12,3 +12,11 @@ h5 {
 table.characteristics td {
   font-size: 90%;
 }
+body.theme-dark .table-striped > tbody > tr:nth-of-type(odd) > td,
+body.theme-dark .table-striped > tbody > tr:nth-of-type(odd) > th {
+  background-color: #2b2b2b;
+}
+body.theme-dark .table-striped > tbody > tr:hover > td,
+body.theme-dark .table-striped > tbody > tr:hover > th {
+  background-color: #3a3a3a;
+}
