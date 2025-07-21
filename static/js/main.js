@@ -446,80 +446,39 @@ function GenPlot() {
   return sLine;
 }
 
-// Dark Mode Toggle Functionality
-$(document).ready(function () {
-  // Theme cycle: auto -> light -> dark -> auto
-  const themes = ["auto", "light", "dark"];
+/* --- Theme toggle (light/dark) --- */
+$(function () {
+  var $darkCss = $("#dark-css");
+  var $toggle = $("#theme-toggle");
 
-  // Check for system dark mode preference
-  function getSystemPreference() {
-    return window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+  if (!$darkCss.length || !$toggle.length) {
+    return;
   }
 
-  // Apply theme to document
   function applyTheme(theme) {
-    if (theme === "auto") {
-      // Remove data-theme attribute to let CSS media queries handle it
-      document.documentElement.removeAttribute("data-theme");
+    if (theme === "dark") {
+      $darkCss.prop("disabled", false);
+      $("body").addClass("theme-dark");
+      $toggle.text("☀️");
     } else {
-      document.documentElement.setAttribute("data-theme", theme);
+      $darkCss.prop("disabled", true);
+      $("body").removeClass("theme-dark");
+      $toggle.text("🌙");
     }
   }
 
-  // Get current effective theme (what the user actually sees)
-  function getEffectiveTheme(theme) {
-    if (theme === "auto") {
-      return getSystemPreference();
-    }
-    return theme;
-  }
+  var preferred =
+    localStorage.getItem("theme") ||
+    (window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light");
 
-  // Update toggle button tooltip
-  function updateToggleTooltip(theme) {
-    const effectiveTheme = getEffectiveTheme(theme);
-    const tooltips = {
-      auto: `Auto (currently ${effectiveTheme})`,
-      light: "Light mode",
-      dark: "Dark mode",
-    };
-    $("#themeToggle").attr("title", tooltips[theme]);
-  }
+  applyTheme(preferred);
 
-  // Set initial theme on page load
-  function setInitialTheme() {
-    const savedTheme = localStorage.getItem("theme") || "auto";
-    applyTheme(savedTheme);
-    updateToggleTooltip(savedTheme);
-    return savedTheme;
-  }
-
-  // Initialize theme
-  let currentTheme = setInitialTheme();
-
-  // Handle theme toggle button click
-  $("#themeToggle").on("click", function () {
-    const currentIndex = themes.indexOf(currentTheme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    currentTheme = themes[nextIndex];
-
-    // Apply the new theme
-    applyTheme(currentTheme);
-    updateToggleTooltip(currentTheme);
-
-    // Save preference to localStorage
-    localStorage.setItem("theme", currentTheme);
+  $toggle.on("click", function () {
+    preferred = preferred === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", preferred);
+    applyTheme(preferred);
   });
-
-  // Listen for system theme changes when in auto mode
-  if (window.matchMedia) {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addListener(function (e) {
-      if (currentTheme === "auto") {
-        updateToggleTooltip("auto");
-      }
-    });
-  }
 });

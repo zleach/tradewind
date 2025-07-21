@@ -9,10 +9,14 @@
 
         <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <link rel="stylesheet" href="static/css/main.css">
+        <!-- Dark mode stylesheet (disabled by default) -->
+        <link id="dark-css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/3.4.1/darkly/bootstrap.min.css" disabled>
         
         <script src="static/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+        <!-- Theme toggle button -->
+        <button id="theme-toggle" class="btn btn-default" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">🌙</button>
         {% include 'ship.tpl' with context %}
 
 <!--         {# include 'sidebar.tpl' with context #} -->
