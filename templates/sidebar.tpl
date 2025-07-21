@@ -5,6 +5,12 @@
         <p>Ship's company generator<br><span class="text-muted">by u/mercuryvii</span></p>        
     </div>
     <div class="panel-body">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-label">
+            <span>Theme</span>
+            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme (Auto/Light/Dark)" title="Auto (follows system)"></button>
+        </div>
+        
         <form role="form">
             <div class="form-group">
                 <label for="prefixInput">Prefix</label>
