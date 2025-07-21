@@ -26,14 +26,14 @@
     --panel-bg: #2d2d2d;
     --panel-border: #404040;
     --table-bg: #2d2d2d;
-    --table-stripe: #363636;
-    --table-border: #404040;
+    --table-stripe: #3a3a3a;
+    --table-border: #484848;
     --input-bg: #363636;
     --input-border: #555;
     --btn-success-bg: #449d44;
     --btn-success-border: #398439;
-    --text-muted: #999;
-    --panel-heading-bg: #404040;
+    --text-muted: #aaa;
+    --panel-heading-bg: #343434;
   }
 }
 
@@ -116,6 +116,11 @@ table.characteristics td {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+.panel-heading h3 {
+  color: var(--text-color);
+  margin-top: 0;
+}
+
 .panel-body {
   background-color: var(--panel-bg);
   color: var(--text-color);
@@ -127,8 +132,22 @@ table.characteristics td {
   background-color: var(--table-bg);
 }
 
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  color: var(--text-color);
+  border-color: var(--table-border);
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: var(--table-stripe);
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: var(--table-bg);
 }
 
 .table-bordered {
@@ -142,6 +161,16 @@ table.characteristics td {
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
   border: 1px solid var(--table-border);
+}
+
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  color: var(--text-color);
+  border-color: var(--table-border);
 }
 
 /* Form styling for dark mode */
@@ -260,4 +289,26 @@ hr {
 abbr {
   color: var(--text-color);
   border-bottom-color: var(--text-color);
+}
+
+/* Strong text styling */
+strong {
+  color: var(--text-color);
+}
+
+/* Label styling for forms */
+label {
+  color: var(--text-color);
+}
+
+/* Name column styling */
+.name strong {
+  color: var(--text-color);
+}
+
+/* Ensure all text elements inherit proper colors */
+p,
+div,
+span {
+  color: inherit;
 }
