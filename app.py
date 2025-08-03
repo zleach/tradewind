@@ -44,6 +44,21 @@ def content():
 
     return render_template('base.tpl', types=types,ship=ship,request=request,prefix=prefix,shipType=shipType,genderMix=genderMix,crewSize=crewSize)
 
+def render_person_text(person):
+    """Generate the same formatted text as shown in the UI"""
+    # First paragraph: personality, age, appearance
+    age_text = f"{person.age}-year-old " if hasattr(person, 'age') and person.age else ""
+    text = f"{person.personality} {age_text}{person.genderPronoun} has {person.eyecolor} eyes, a {person.skincolor} complexion, and {person.hairtype} {person.haircolor} hair {person.hairstyle}."
+    
+    # Second paragraph: height, build, origin
+    text += f" {person.genderTitle.capitalize()} is {person.height} and {person.build}. {person.genderTitle.capitalize()} {person.birthPlace}."
+    
+    # Previous service if applicable
+    if person.previousService and hasattr(person, 'rank') and not callable(person.rank):
+        text += f" {person.rank.title} {person.lastName} previously served aboard the USS {person.previousService}."
+    
+    return text
+
 def person_to_dict(person):
     """Convert a person object to a dictionary for JSON serialization"""
     result = {
@@ -64,6 +79,7 @@ def person_to_dict(person):
         'birthPlace': person.birthPlace,
         'age': person.age if hasattr(person, 'age') else None,
         'previousService': person.previousService if person.previousService else None,
+        'renderedText': render_person_text(person),
     }
     
     # Add rank information if available
@@ -123,6 +139,26 @@ def api_people_info():
             'people': 'array of person objects',
             'count': 'number of people generated',
             'parameters': 'parameters used for generation'
+        },
+        'person_object_fields': {
+            'firstName': 'First name',
+            'lastName': 'Last name', 
+            'gender': 'Gender (male/female)',
+            'personality': 'Personality description',
+            'age': 'Age (for military personnel)',
+            'rank': 'Military rank object (for military personnel)',
+            'callsign': 'Pilot callsign (for pilots)',
+            'eyecolor': 'Eye color',
+            'haircolor': 'Hair color',
+            'hairstyle': 'Hair style',
+            'hairtype': 'Hair type',
+            'skincolor': 'Skin color',
+            'height': 'Height description',
+            'build': 'Build description',
+            'birthPlace': 'Place of birth/origin',
+            'previousService': 'Previous military service',
+            'renderedText': 'Full formatted description as shown in UI',
+            'type': 'Person type (Person, Officer, Pilot, etc.)'
         }
     })
 
