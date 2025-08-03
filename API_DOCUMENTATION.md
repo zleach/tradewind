@@ -1,6 +1,6 @@
 # Tradewind Character & People Generator API
 
-Generate rich, detailed character profiles for creative writing and sci-fi military personnel with the Tradewind API.
+Generate names, detailed character profiles for creative writing, and sci-fi military personnel with the Tradewind API.
 
 ## Base URL
 
@@ -73,6 +73,50 @@ Generate complex characters for creative writing with deep psychological profile
     }
   ],
   "count": 1
+}
+```
+
+### Names API (Simple Name Generation)
+
+#### GET /api/names
+
+Generate simple names with optional parameters. Uses query parameters instead of JSON body.
+
+**Query Parameters:**
+
+- `count` (optional): Number of names to generate (1-100, default: 1)
+- `gender` (optional): Gender for names ("male", "female", or omitted for random)
+
+**Examples:**
+
+```bash
+# Single random name
+GET /api/names
+
+# 5 female names
+GET /api/names?count=5&gender=female
+
+# 3 random gender names
+GET /api/names?count=3
+```
+
+**Response:**
+
+```json
+{
+  "names": [
+    {
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "fullName": "Sarah Johnson",
+      "gender": "female"
+    }
+  ],
+  "count": 1,
+  "parameters": {
+    "requested_count": 1,
+    "gender": null
+  }
 }
 ```
 
@@ -533,6 +577,34 @@ Currently no rate limiting is enforced, but please use the API responsibly.
 
 ### JavaScript/Node.js
 
+#### Simple Names Generation
+
+```javascript
+async function generateNames(count = 1, gender = null) {
+  const params = new URLSearchParams();
+  if (count > 1) params.append("count", count);
+  if (gender) params.append("gender", gender);
+
+  const url = `https://tradewindgen.com/api/names${
+    params.toString() ? "?" + params.toString() : ""
+  }`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data.names;
+}
+
+// Usage examples
+generateNames().then((names) => {
+  console.log(`Random name: ${names[0].fullName}`);
+});
+
+generateNames(5, "female").then((names) => {
+  names.forEach((name) => {
+    console.log(`${name.firstName} ${name.lastName}`);
+  });
+});
+```
+
 #### Character Generation for Writers
 
 ```javascript
@@ -602,6 +674,32 @@ generateOfficers(5).then((officers) => {
 
 ### Python
 
+#### Simple Names Generation
+
+```python
+import requests
+
+def generate_names(count=1, gender=None):
+    url = 'https://tradewindgen.com/api/names'
+    params = {}
+    if count > 1:
+        params['count'] = count
+    if gender:
+        params['gender'] = gender
+
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()['names']
+
+# Usage examples
+names = generate_names()
+print(f"Random name: {names[0]['fullName']}")
+
+female_names = generate_names(count=3, gender='female')
+for name in female_names:
+    print(f"{name['firstName']} {name['lastName']}")
+```
+
 #### Character Generation for Writers
 
 ```python
@@ -663,6 +761,19 @@ for pilot in pilots:
 
 ### cURL
 
+#### Names Generation
+
+```bash
+# Get a single random name
+curl https://tradewindgen.com/api/names
+
+# Get 5 female names
+curl "https://tradewindgen.com/api/names?count=5&gender=female"
+
+# Get 10 random names
+curl "https://tradewindgen.com/api/names?count=10"
+```
+
 #### Character Generation
 
 ```bash
@@ -707,4 +818,4 @@ For questions, issues, or feature requests, please visit [tradewindgen.com](http
 
 ---
 
-_The Tradewind API provides dual character generation services: **Characters API** for complex literary character development with psychological depth, motivations, and flaws perfect for writers and authors, and **People API** for detailed military personnel generation ideal for sci-fi applications and gaming. Both APIs include comprehensive background information, personality traits, and formatted narrative text._
+_The Tradewind API provides three generation services: **Names API** for simple name generation, **Characters API** for complex literary character development with psychological depth, motivations, and flaws perfect for writers and authors, and **People API** for detailed military personnel generation ideal for sci-fi applications and gaming. The character and people APIs include comprehensive background information, personality traits, and formatted narrative text._

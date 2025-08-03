@@ -1,10 +1,12 @@
 import os
+import random
 from flask import Flask, render_template, send_from_directory, jsonify
 from flask import request, url_for
 
 from app import ships
 from app import people
 from app import characters
+from app import names
 
 # initialization
 app = Flask(__name__)
@@ -468,6 +470,48 @@ def api_people():
                 'requested_count': count,
                 'gender': gender,
                 'type': person_type
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
+
+@app.route('/api/names', methods=['GET'])
+def api_names():
+    """Generate simple names with optional count and gender"""
+    try:
+        # Get query parameters
+        count = request.args.get('count', 1, type=int)
+        gender = request.args.get('gender')
+        
+        # Validate count
+        if count < 1 or count > 100:
+            return jsonify({'error': 'Count must be between 1 and 100'}), 400
+        
+        # Validate gender
+        if gender and gender not in ['male', 'female']:
+            return jsonify({'error': 'Gender must be "male", "female", or omitted for random'}), 400
+        
+        # Generate names
+        generated_names = []
+        for _ in range(count):
+            # If no gender specified, pick one randomly for this name
+            name_gender = gender if gender else ('male' if random.randint(0, 1) else 'female')
+            first_name = names.get_first_name(name_gender)
+            last_name = names.get_last_name()
+            generated_names.append({
+                'firstName': first_name,
+                'lastName': last_name,
+                'fullName': f"{first_name} {last_name}",
+                'gender': name_gender
+            })
+        
+        return jsonify({
+            'names': generated_names,
+            'count': len(generated_names),
+            'parameters': {
+                'requested_count': count,
+                'gender': gender
             }
         })
         
