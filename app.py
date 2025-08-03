@@ -4,6 +4,7 @@ from flask import request, url_for
 
 from app import ships
 from app import people
+from app import characters
 
 # initialization
 app = Flask(__name__)
@@ -99,6 +100,255 @@ def person_to_dict(person):
     result['type'] = type(person).__name__
     
     return result
+
+def render_character_text(character):
+    """Generate formatted text for character as it would appear in a story context"""
+    # Character description focusing on personality and motivation
+    age_text = f"{character.age}-year-old " if character.age else ""
+    text = f"{character.firstName} {character.lastName} is a {age_text}{character.genderPronoun} who {character.primaryMotivation}. "
+    
+    # Core personality and flaws
+    text += f"{character.genderTitle.capitalize()} is {character.positiveTraits} but {character.coreFlaws}. "
+    
+    # Key background elements
+    text += f"{character.genderTitle.capitalize()} {character.birthPlace} and works as a {character.occupation}. "
+    
+    # Emotional/relationship core
+    text += f"{character.genderTitle.capitalize()} {character.emotionalCore} and {character.relationshipStyle}. "
+    
+    # Fear and internal conflict
+    text += f"Deep down, {character.genderTitle} {character.fears} and {character.internalConflict}."
+    
+    return text
+
+def character_to_dict(character):
+    """Convert a character object to a dictionary for JSON serialization"""
+    result = {
+        'firstName': character.firstName,
+        'lastName': character.lastName,
+        'age': character.age,
+        'gender': character.gender,
+        'genderTitle': character.genderTitle,
+        'genderPronoun': character.genderPronoun,
+        'genderPossessive': character.genderPossessive,
+        
+        # Physical appearance
+        'eyecolor': character.eyecolor,
+        'skincolor': character.skincolor,
+        'hairtype': character.hairtype,
+        'haircolor': character.haircolor,
+        'hairstyle': character.hairstyle,
+        'height': character.height,
+        'build': character.build,
+        
+        # Character development core
+        'primaryMotivation': character.primaryMotivation,
+        'coreFlaws': character.coreFlaws,
+        'fears': character.fears,
+        'secret': character.secret,
+        'moralAlignment': character.moralAlignment,
+        'emotionalCore': character.emotionalCore,
+        
+        # Background
+        'socioeconomicBackground': character.socioeconomicBackground,
+        'educationLevel': character.educationLevel,
+        'occupation': character.occupation,
+        'familyBackground': character.familyBackground,
+        'formativeExperience': character.formativeExperience,
+        'birthPlace': character.birthPlace,
+        
+        # Skills and abilities
+        'primarySkill': character.primarySkill,
+        'hiddenTalent': character.hiddenTalent,
+        
+        # Relationships and goals
+        'relationshipStyle': character.relationshipStyle,
+        'trustIssues': character.trustIssues,
+        'shortTermGoal': character.shortTermGoal,
+        'longTermGoal': character.longTermGoal,
+        'internalConflict': character.internalConflict,
+        
+        # Personality
+        'positiveTraits': character.positiveTraits,
+        'quirks': character.quirks,
+        
+        # Meta information
+        'type': type(character).__name__,
+        'renderedText': render_character_text(character),
+    }
+    
+    # Add specialized fields based on character type
+    if hasattr(character, 'heroicFlaw'):
+        result['heroicFlaw'] = character.heroicFlaw
+        result['characterArc'] = character.characterArc
+        result['callToAdventure'] = character.callToAdventure
+        result['mentalToughness'] = character.mentalToughness
+    
+    if hasattr(character, 'corruptionSource'):
+        result['corruptionSource'] = character.corruptionSource
+        result['redeemedQuality'] = character.redeemedQuality
+        result['methodOfControl'] = character.methodOfControl
+    
+    if hasattr(character, 'relationshipRole'):
+        result['relationshipRole'] = character.relationshipRole
+        result['loyaltyLevel'] = character.loyaltyLevel
+        result['supportType'] = character.supportType
+    
+    if hasattr(character, 'humorStyle'):
+        result['humorStyle'] = character.humorStyle
+        result['comedySource'] = character.comedySource
+        result['seriousMoment'] = character.seriousMoment
+    
+    if hasattr(character, 'wisdomSource'):
+        result['wisdomSource'] = character.wisdomSource
+        result['teachingStyle'] = character.teachingStyle
+        result['pastFailure'] = character.pastFailure
+    
+    if hasattr(character, 'romanticAppeal'):
+        result['romanticAppeal'] = character.romanticAppeal
+        result['romanticConflict'] = character.romanticConflict
+    
+    return result
+
+@app.route('/api/characters', methods=['GET'])
+def api_characters_info():
+    """Provide API documentation for character generation"""
+    return jsonify({
+        'endpoint': '/api/characters',
+        'description': 'Generate complex characters for storytelling and creative writing',
+        'methods': ['POST'],
+        'parameters': {
+            'count': {
+                'type': 'integer',
+                'description': 'Number of characters to generate (1-50)',
+                'default': 1,
+                'required': False
+            },
+            'gender': {
+                'type': 'string',
+                'description': 'Gender of generated characters',
+                'options': ['male', 'female', None],
+                'default': None,
+                'note': 'null means random gender',
+                'required': False
+            },
+            'type': {
+                'type': 'string', 
+                'description': 'Type of character to generate',
+                'options': ['Character', 'Protagonist', 'Antagonist', 'SupportingCharacter', 'ComicRelief', 'Mentor', 'LoveInterest'],
+                'default': 'Character',
+                'required': False
+            }
+        },
+        'example_request': {
+            'count': 2,
+            'gender': 'female',
+            'type': 'Protagonist'
+        },
+        'response_format': {
+            'characters': 'array of character objects',
+            'count': 'number of characters generated',
+            'parameters': 'parameters used for generation'
+        },
+        'character_object_fields': {
+            'firstName': 'First name',
+            'lastName': 'Last name',
+            'age': 'Age in years',
+            'gender': 'Gender (male/female)',
+            'primaryMotivation': 'Core driving motivation',
+            'coreFlaws': 'Character flaws and weaknesses',
+            'fears': 'Deepest fears',
+            'secret': 'Hidden secret',
+            'moralAlignment': 'Moral philosophy and values',
+            'emotionalCore': 'Emotional patterns and traits',
+            'socioeconomicBackground': 'Economic and social background',
+            'educationLevel': 'Educational background',
+            'occupation': 'Current job or profession',
+            'familyBackground': 'Family history and dynamics',
+            'formativeExperience': 'Life-shaping experience',
+            'primarySkill': 'Main talent or ability',
+            'hiddenTalent': 'Secret skill or ability',
+            'relationshipStyle': 'How they approach relationships',
+            'trustIssues': 'Trust patterns and issues',
+            'shortTermGoal': 'Immediate objective',
+            'longTermGoal': 'Life goal or ambition',
+            'internalConflict': 'Core internal struggle',
+            'positiveTraits': 'Strengths and virtues',
+            'quirks': 'Unique behavioral traits',
+            'birthPlace': 'Place of origin',
+            'renderedText': 'Full character summary for storytelling',
+            'type': 'Character archetype'
+        },
+        'character_types': {
+            'Character': 'Base character with full development',
+            'Protagonist': 'Main character with hero\'s journey elements',
+            'Antagonist': 'Opposing character with compelling motivations',
+            'SupportingCharacter': 'Supporting role with specific relationship function',
+            'ComicRelief': 'Humorous character with hidden depth',
+            'Mentor': 'Wise guide character with teaching abilities',
+            'LoveInterest': 'Romantic character with relationship dynamics'
+        },
+        'use_cases': [
+            'Novel and short story character development',
+            'Screenplay and script writing',
+            'Tabletop RPG character creation',
+            'Creative writing exercises',
+            'Character-driven story planning',
+            'Writing workshop prompts'
+        ]
+    })
+
+@app.route('/api/characters', methods=['POST'])
+def api_characters():
+    """Generate characters for creative writing based on JSON parameters"""
+    try:
+        # Get JSON data from request
+        data = request.get_json()
+        if not data:
+            data = {}
+        
+        # Parse parameters with defaults
+        count = data.get('count', 1)
+        gender = data.get('gender', None)  # None means random
+        character_type = data.get('type', 'Character')  # Default to basic Character
+        
+        # Validate count (lower limit for characters since they're more complex)
+        if not isinstance(count, int) or count < 1 or count > 50:
+            return jsonify({'error': 'Count must be an integer between 1 and 50'}), 400
+        
+        # Validate gender
+        if gender and gender not in ['male', 'female']:
+            return jsonify({'error': 'Gender must be "male", "female", or null for random'}), 400
+        
+        # Validate character type
+        valid_types = ['Character', 'Protagonist', 'Antagonist', 'SupportingCharacter', 'ComicRelief', 'Mentor', 'LoveInterest']
+        if character_type not in valid_types:
+            return jsonify({'error': f'Type must be one of: {", ".join(valid_types)}'}), 400
+        
+        # Generate characters
+        generated_characters = []
+        for _ in range(count):
+            # Get the appropriate class
+            character_class = getattr(characters, character_type)
+            
+            # Create character instance with specified gender
+            character = character_class(gender=gender)
+            
+            # Convert to dictionary and add to results
+            generated_characters.append(character_to_dict(character))
+        
+        return jsonify({
+            'characters': generated_characters,
+            'count': len(generated_characters),
+            'parameters': {
+                'requested_count': count,
+                'gender': gender,
+                'type': character_type
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
 
 @app.route('/api/people', methods=['GET'])
 def api_people_info():
