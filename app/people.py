@@ -20,9 +20,9 @@ class Personallity(object):
       return self.description;
         
 class Person(object):
-    def __init__(self):
+    def __init__(self, gender=None):
         # Gender
-        self.gender = self.gender()
+        self.gender = gender if gender else self.gender()
         self.genderTitle = self.genderTitle()
         self.genderPronoun = self.genderPronoun()
         self.genderPossessive = self.genderPossessive()
@@ -82,23 +82,23 @@ class Person(object):
         return '%s %s' % (self.firstName,self.lastName)
       
 class Officer(Person):
-    def __init__(self):
-        Person.__init__(self)
+    def __init__(self, gender=None):
+        Person.__init__(self, gender)
         self.rank = self.rank('officer');
         # Store age as an int so it can be compared numerically elsewhere
         self.age = int(round(random.randint(22,40)*(self.rank.order * 0.10) + 0))
 
 class Enlisted(Person):
-    def __init__(self):
-        Person.__init__(self)
+    def __init__(self, gender=None):
+        Person.__init__(self, gender)
         self.rank = self.rank('enlisted');
         self.age = int(round(random.randint(22, 30) * (self.rank.order * 0.10) + 13))
         if self.age <= self.minimumAge:
             self.age = self.minimumAge
       
 class Pilot(Officer):
-    def __init__(self):
-        Officer.__init__(self);
+    def __init__(self, gender=None):
+        Officer.__init__(self, gender);
         self.callsign = self.callsign();
         self.age = int(round(random.randint(15, 25) * (self.rank.order * 0.10)))
 
@@ -109,20 +109,20 @@ class Pilot(Officer):
         return '%s "%s" %s' % (self.firstName,self.callsign,self.lastName)
 
 class HighRankOfficer(Officer):
-    def __init__(self):
-        Person.__init__(self);
+    def __init__(self, gender=None):
+        Person.__init__(self, gender);
         self.rank = self.rank('high ranking officer');
         self.age = int(round(random.randint(20, 30) * (self.rank.order * 0.10) + 13))
 
 class Commander(Officer):
-    def __init__(self):
-        Person.__init__(self);
+    def __init__(self, gender=None):
+        Person.__init__(self, gender);
         self.rank = self.rank('commander');
         self.age = int(round(random.randint(20, 30) * (self.rank.order * 0.10) + 13))
 
 class Marine(Enlisted):
-    def __init__(self):
-        Person.__init__(self);
+    def __init__(self, gender=None):
+        Person.__init__(self, gender);
         self.rank = self.rank('marine');
         self.age = int(round(random.randint(20, 40) * (self.rank.order * 0.10) + 14))
       
