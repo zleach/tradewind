@@ -8,6 +8,16 @@ from app import characters
 
 # initialization
 app = Flask(__name__)
+
+# Enable CORS for all origins on all API routes
+try:
+    from flask_cors import CORS
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+except ImportError:
+    # If flask-cors isn't installed in the runtime environment, the API will still run
+    # but CORS headers won't be added. Ensure flask-cors is listed in requirements.txt
+    pass
+
 app.config.update(
     DEBUG = True,
 )

@@ -1941,7 +1941,21 @@ character = {
         "delivery driver connecting with customers",
         "translator bridging cultural gaps",
         "park ranger protecting nature",
-        "funeral director comforting the grieving"
+        "funeral director comforting the grieving",
+        "astronaut exploring the stars",
+        "marine protecting the ocean",
+        "pilot flying through the clouds",
+        "doctor saving lives",
+        "scientist discovering new things",
+        "artist creating beautiful things",
+        "writer telling stories",
+        "teacher educating the next generation",
+        "researcher uncovering hidden truths",
+        "chef creating delicious meals",
+        "mechanic fixing broken machines",
+        "librarian organizing knowledge",
+        "security guard protecting people",
+        "delivery driver delivering goods",
     ],
     "family_background": [
         "raised by a single parent who sacrificed everything",
@@ -1958,7 +1972,14 @@ character = {
         "raised by parents who had them too young",
         "family torn apart by addiction or mental illness",
         "grew up wealthy but emotionally cold family",
-        "raised in a family of overachievers where they didn't fit"
+        "raised in a family of overachievers where they didn't fit",
+        "raised by a single parent who sacrificed everything",
+        "grew up in foster care, never finding permanent home",
+        "part of a large, chaotic but loving family",
+        "only child of overprotective parents",
+        "raised by grandparents after parents died",
+        "split between divorced parents who hate each other",
+        "grew up in a family business that's failing",
     ],
     "formative_experiences": [
         "survived a natural disaster that killed others",
@@ -1975,7 +1996,14 @@ character = {
         "was forced to move frequently during childhood",
         "experienced poverty that shaped their worldview",
         "had a mentor who believed in them when no one else did",
-        "witnessed an injustice they couldn't prevent"
+        "witnessed an injustice they couldn't prevent",
+        "was raised by a single parent who sacrificed everything",
+        "grew up in foster care, never finding permanent home",
+        "part of a large, chaotic but loving family",
+        "only child of overprotective parents",
+        "raised by grandparents after parents died",
+        "split between divorced parents who hate each other",
+        "grew up in a family business that's failing",
     ],
     "skills": {
         "primary": [
@@ -1994,6 +2022,7 @@ character = {
             "excellent strategist and planner",
             "natural teacher who makes complex things simple",
             "gifted with animals and nature"
+
         ],
         "hidden": [
             "can sing beautifully but is too shy to perform",
@@ -2010,6 +2039,7 @@ character = {
             "can read lips and body language expertly",
             "has eidetic memory for written text",
             "can detect lies with unusual accuracy"
+            
         ]
     },
     "relationship_patterns": [
